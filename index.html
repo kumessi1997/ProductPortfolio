@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="MBF Interactive Product Portfolio">
+    <meta property="og:title" content="Product Portfolio MBF">
     <meta property="og:description" content="Check out this Rive animation hosted on GitHub Pages!">
     <meta property="og:type" content="website">
     <title>Rive Animation</title>
@@ -62,8 +62,8 @@
             position: fixed;
             bottom: 90px;
             right: 20px;
-            width: 350px;
-            height: 500px;
+            width: 525px;
+            height: 750px;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -74,11 +74,11 @@
         }
 
         .chat-header {
-            padding: 15px;
+            padding: 22px;
             background-color: #1a308b;
             color: white;
             font-weight: 600;
-            font-size: 1.1em;
+            font-size: 1.5em;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -107,18 +107,18 @@
 
         .chat-messages {
             flex-grow: 1;
-            padding: 15px;
+            padding: 24px;
             overflow-y: auto;
-            font-size: 0.95em;
+            font-size: 1.2em;
         }
 
         .message {
-            margin-bottom: 10px;
-            padding: 8px 12px;
-            border-radius: 15px;
+            margin-bottom: 16px;
+            padding: 14px 20px;
+            border-radius: 18px;
             max-width: 80%;
-            font-size: 0.95em;
-            line-height: 1.4;
+            font-size: 1.2em;
+            line-height: 1.6;
         }
 
         .user-message {
@@ -134,30 +134,30 @@
 
         .chat-input {
             display: flex;
-            padding: 10px;
+            padding: 18px;
             border-top: 1px solid #eee;
         }
 
         .chat-input input {
             flex-grow: 1;
-            padding: 8px 12px;
+            padding: 14px 18px;
             border: 1px solid #ddd;
-            border-radius: 20px;
-            margin-right: 10px;
+            border-radius: 24px;
+            margin-right: 16px;
             font-family: 'Inter', sans-serif;
-            font-size: 0.95em;
+            font-size: 1.2em;
         }
 
         .chat-input button {
-            padding: 8px 15px;
+            padding: 12px 28px;
             background-color: #1a308b;
             color: white;
             border: none;
-            border-radius: 20px;
+            border-radius: 24px;
             cursor: pointer;
             font-family: 'Inter', sans-serif;
             font-weight: 500;
-            font-size: 0.95em;
+            font-size: 1.2em;
         }
 
         .chat-input button:hover {
@@ -233,7 +233,7 @@
         });
 
         // Chat functionality
-        const API_KEY = 'AIzaSyCB7gTlKYydpmGX3bUGpQZwWxj-RqJ-ItA'; // You'll need to add your Gemini API key here
+        const API_KEY = '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'; // Your OpenAI API key
         let conversationHistory = [];
 
         function toggleChat() {
@@ -253,7 +253,6 @@
             const message = userInput.value.trim();
             
             if (message) {
-                // Disable input and show loading state
                 userInput.disabled = true;
                 sendButton.disabled = true;
                 sendButton.innerHTML = '<div class="loading"></div>';
@@ -271,15 +270,9 @@
                         body: JSON.stringify({
                             model: 'gpt-4',
                             messages: [
-                                {
-                                    role: 'system',
-                                    content: 'You are the MBF Ambassador, providing information and promoting MBF products.'
-                                },
+                                { role: 'system', content: 'You are the MBF Ambassador, providing information and promoting MBF products.' },
                                 ...conversationHistory,
-                                {
-                                    role: 'user',
-                                    content: message
-                                }
+                                { role: 'user', content: message }
                             ]
                         })
                     });
@@ -290,7 +283,6 @@
                         const botResponse = data.choices[0].message.content;
                         addMessage(botResponse, 'bot');
                         
-                        // Update conversation history
                         conversationHistory.push(
                             { role: 'user', content: message },
                             { role: 'assistant', content: botResponse }
@@ -302,7 +294,6 @@
                     console.error('Error:', error);
                     addMessage('Sorry, I encountered an error. Please try again later.', 'bot');
                 } finally {
-                    // Re-enable input and restore button
                     userInput.disabled = false;
                     sendButton.disabled = false;
                     sendButton.textContent = 'Send';
