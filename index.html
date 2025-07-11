@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Product Portfolio MBF">
+    <meta property="og:description" content="Check out this Rive animation hosted on GitHub Pages!">
+    <meta property="og:type" content="website">
+    <title>Rive Animation</title>
+    <script src="https://unpkg.com/@rive-app/webgl2"></script>
+    <!-- Add Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background elements -->
+    <div class="geometric-background" id="geometric-background"></div>
+    <div class="particles" id="particles"></div>
+    <div class="gradient-overlay"></div>
+
+    <canvas id="riveCanvas"></canvas>
+
+    <!-- Chat Interface -->
+    <div class="chat-container">
+        <button class="chat-button" onclick="toggleChat()">
+            <img src="logo.png" alt="Logo" style="width: 100%; height: 100%;">
+        </button>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <span>MBF Ambassador</span>
+                <button class="close-button" onclick="toggleChat()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Ask about MBF products..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()" id="sendButton">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide Modal Button and Modal -->
+    <button class="slide-modal-btn" onclick="openSlideModal()" title="View Slideshow">
+        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg>
+    </button>
+    <div class="slide-modal-overlay" id="slideModalOverlay">
+        <div class="slide-modal">
+            <button class="slide-modal-close" onclick="closeSlideModal()" title="Close">&times;</button>
+            <iframe src="slide.html" title="Slideshow"></iframe>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
