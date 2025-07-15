@@ -5,7 +5,7 @@
         canvas: document.getElementById("riveCanvas"),
         autoplay: true,
         stateMachines: "State Machine 1",
-        artboard: "Main",
+        artboard: "Main2",
         onLoad: () => {
             r.resizeDrawingSurfaceToCanvas();
         },
