@@ -1,0 +1,572 @@
+
+canvas {
+    display: block; /* Remove any extra spacing */
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    position: fixed; /* Ensure canvas is above background */
+    z-index: 1; /* Place above background layers (0, 1, 5) */
+}
+
+body {
+
+    margin: 0;
+    overflow: hidden;
+    font-family: sans-serif;
+    color: #fff;
+    text-align: center;
+}
+
+.water-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    background: linear-gradient(to bottom, #0077be, #003366); 
+    perspective: 1000px; 
+}
+
+.water-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover; 
+    opacity: 0.6; 
+    will-change: transform, opacity; 
+}
+
+.layer-1 {
+    
+    background-size: 200px; 
+    animation: wave-motion-1 20s ease-in-out infinite alternate;
+    filter: blur(8px);
+    opacity: 0.5;
+}
+
+.layer-2 {
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0) 60%);
+    animation: wave-motion-2 18s linear infinite;
+    filter: blur(5px);
+    opacity: 0.7;
+    transform: translateZ(-50px); 
+}
+
+.layer-3 {
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+    animation: wave-motion-3 22s ease infinite alternate-reverse;
+    filter: blur(6px);
+    opacity: 0.6;
+    transform: translateZ(-100px); 
+}
+
+.water-highlights {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--highlight-x, 50%) var(--highlight-y, 50%), rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 50%);
+    mix-blend-mode: screen;
+    opacity: var(--highlight-opacity, 0.7); 
+    will-change: transform, opacity;
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    padding: 50px;
+    pointer-events: none; 
+}
+
+
+.particle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particle-fade-out 1s ease-out forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes wave-motion-1 {
+    0% { transform: scale(1, 1) translate(0, 0) rotate(0deg); }
+    50% { transform: scale(1.03, 0.97) translate(30px, 15px) rotate(1deg); }
+    100% { transform: scale(1, 1) translate(0, 0) rotate(0deg); }
+}
+
+@keyframes wave-motion-2 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(50px, 20px) rotate(2deg); }
+}
+
+@keyframes wave-motion-3 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(-40px, -15px) rotate(-1deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes particle-fade-out {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--particle-end-x), var(--particle-end-y)) scale(0.2); opacity: 0; }
+}
+
+/* Chat Interface Styles */
+.chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    font-family: 'Inter', sans-serif;
+}
+
+.chat-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: white;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.chat-button:hover {
+    transform: scale(1.1);
+}
+
+.chat-window {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 525px;
+    height: 750px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+
+.chat-header {
+    padding: 22px;
+    background-color: #1a308b;
+    color: white;
+    font-weight: 600;
+    font-size: 1.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.close-button:hover {
+    transform: scale(1.1);
+}
+
+.close-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 24px;
+    overflow-y: auto;
+    font-size: 1.2em;
+}
+
+.message {
+    margin-bottom: 16px;
+    padding: 14px 20px;
+    border-radius: 18px;
+    max-width: 80%;
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+.user-message {
+    background-color: #1a308b;
+    color: white;
+    margin-left: auto;
+}
+
+.bot-message {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.chat-input {
+    display: flex;
+    padding: 18px;
+    border-top: 1px solid #eee;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 14px 18px;
+    border: 1px solid #ddd;
+    border-radius: 24px;
+    margin-right: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.2em;
+}
+
+.chat-input button {
+    padding: 12px 28px;
+    background-color: #1a308b;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 1.2em;
+}
+
+.chat-input button:hover {
+    background-color: #1a308b;
+}
+
+/* Additional styles for loading state */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 3px solid #1a308b;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.9em;
+    margin-top: 5px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Slide Modal Styles */
+.slide-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.7);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+.slide-modal-overlay.active {
+    display: flex;
+}
+.slide-modal {
+    background: #111;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    position: relative;
+    width: 90vw;
+    max-width: 1200px;
+    height: 80vh;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.slide-modal iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 16px;
+    background: #111;
+}
+.slide-modal-close {
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s;
+}
+.slide-modal-close:hover {
+    transform: scale(1.2);
+}
+.slide-modal-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #e84824; /* Blue color for contact button */
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.3s, background 0.2s;
+}
+.slide-modal-btn:hover {
+    transform: scale(1.1);
+    background: #e65100;
+}
+
+.slide-btn-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between button and text */
+}
+
+.slide-btn-text {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 1em;
+   
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+/* Contact Button Container */
+.contact-btn-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Removed margin-left as it will be handled by gap in .bottom-buttons-wrapper */
+}
+
+.contact-modal-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #007bff; /* Blue color for contact button */
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.3s, background 0.2s;
+}
+
+.contact-modal-btn:hover {
+    transform: scale(1.1);
+    background: #0056b3;
+}
+
+.contact-btn-text {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 1em;
+   
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+/* New wrapper for both buttons */
+.bottom-buttons-wrapper {
+    position: fixed;
+    bottom: 30px;
+    left: 20px;
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between the two button groups */
+}
+
+/* Contact Modal Styles */
+.contact-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.7);
+    z-index: 2100; /* Higher z-index than slide modal */
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-modal-overlay.active {
+    display: flex;
+}
+
+.contact-modal {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    width: 90vw;
+    max-width: 1200px; /* Increased max-width for 16:9 ratio */
+    height: 80vh;
+    max-height: 675px; /* Max height to maintain 16:9 aspect ratio with max-width */
+    aspect-ratio: 16 / 9; /* Enforce 16:9 aspect ratio */
+    overflow: hidden; /* Hide overflow from content within */
+    padding: 0; /* Remove padding from modal itself, will be applied to panels */
+    color: #333;
+    font-family: 'Inter', sans-serif;
+    display: flex; /* Use flex to contain panels */
+    align-items: stretch; /* Stretch items to fill height */
+}
+
+.contact-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s;
+}
+
+.contact-modal-close:hover {
+    transform: scale(1.2);
+}
+
+.contact-form-content {
+    display: flex; /* Use flex to arrange left and right panels */
+    width: 100%;
+    height: 100%;
+}
+
+.contact-left-panel {
+    flex: 1; /* Take up remaining space */
+    background-color: #f8f9fa; /* Light background for left panel */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.contact-right-panel {
+    flex: 1; /* Take up remaining space */
+    padding: 30px;
+    background-color: #fff;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.form-header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px; /* Keep existing margin */
+    text-align: center;
+}
+
+#riveLogoCanvas.form-rive {
+    width: 400px; /* Adjusted width */
+    height: 200px; /* Set a fixed height for better control */
+    margin-bottom: 30px; /* Increased margin to push article down */
+}
+
+.form-article {
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.5;
+    max-width: none;
+    margin-top: 200px; /* Added margin to push article down from canvas */
+    padding: 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+    text-align: left; /* Align text to the left */
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group textarea {
+    width: calc(100% - 24px); /* Account for padding */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.contact-modal form button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #1a308b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.contact-modal form button[type="submit"]:hover {
+    background-color: #1a308b;
+}
