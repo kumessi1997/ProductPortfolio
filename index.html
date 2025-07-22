@@ -43,6 +43,8 @@
                     </div>
                 </div>
             </div>
+
+         <!-- Slideshow -->        
             <div class="slide-btn-container">
                 <button class="slide-modal-btn" onclick="openSlideModal()" title="View Slideshow">
                     <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg>
@@ -80,22 +82,57 @@
                         <h2>Contact & Register</h2>
                         <form id="contactForm">
                             <div class="form-group">
-                                <label for="name">Name:</label>
-                                <input type="text" id="name" name="name" required>
+                                <label for="name">Họ và tên<span style="color: red">*</span></label>
+                                <input type="text" id="name" name="name" placeholder="Nhập họ và tên của bạn" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input type="email" id="email" name="email" required>
+                                <label for="email">Email<span style="color: red">*</span></label>
+                                <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required>
                             </div>
                             <div class="form-group">
-                                <label for="phone">Phone:</label>
-                                <input type="tel" id="phone" name="phone">
+                                <label for="phone">Điện thoại</label>
+                                <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại liên hệ của bạn">
                             </div>
                             <div class="form-group">
-                                <label for="message">Message:</label>
-                                <textarea id="message" name="message" rows="4"></textarea>
+                                <label for="position">Chức danh<span style="color: red">*</span></label>
+                                <select id="position" name="position" required>
+                                    <option value="">Chọn chức danh của bạn</option>
+                                    <option value="Lãnh đạo">Lãnh đạo</option>
+                                    <option value="Quản lý">Quản lý</option>
+                                    <option value="Nhân viên">Nhân viên</option>
+                                </select>
                             </div>
-                            <button type="submit">Submit</button>
+                            <div class="form-group">
+                                <label for="industry">Ngành nghề</label>
+                                <select id="industry" name="industry">
+                                    <option value="">Chọn ngành nghề của bạn</option>
+                                    <option value="Chính phủ, chính quyền, Khối dịch vụ công">Chính phủ, chính quyền, Khối dịch vụ công</option>
+                                    <option value="Y tế">Y tế</option>
+                                    <option value="Bất động sản - Xây dựng">Bất động sản - Xây dựng</option>
+                                    <option value="Sản xuất">Sản xuất</option>
+                                    <option value="Nông nghiệp">Nông nghiệp</option>
+                                    <option value="Công nghệ">Công nghệ</option>
+                                    <option value="Giáo dục">Giáo dục</option>
+                                    <option value="BFSI">BFSI</option>
+                                    <option value="Khác">Khác</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Công ty/đơn vị<span style="color: red">*</span></label>
+                                <input type="text" id="company" name="company" placeholder="Nhập công ty/đơn vị của bạn" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Mô tả nhu cầu<span style="color: red">*</span></label>
+                                <textarea id="message" name="message" rows="4" placeholder="Mô tả nhu cầu của bạn" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" id="privacy" name="privacy" required>
+                                <label for="privacy">Tôi đồng ý chia sẻ thông tin và đồng ý với Chính sách bảo mật dữ liệu cá nhân</label>
+                            </div>
+                            <div class="form-group">
+                                <a href="#" style="color: #007bff; font-size: 13px;">Thông tin về Chính sách bảo mật dữ liệu cá nhân</a>
+                            </div>
+                            <button type="submit" style="background: linear-gradient(90deg, #ff9800, #ff5722); color: white; border: none; border-radius: 24px; padding: 12px 32px; font-size: 16px; font-weight: bold; cursor: pointer;">Gửi yêu cầu</button>
                         </form>
                     </div>
                 </div>
