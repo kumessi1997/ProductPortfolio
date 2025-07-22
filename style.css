@@ -24,7 +24,7 @@ body {
     height: 100%;
     overflow: hidden;
     z-index: -1;
-    background: linear-gradient(to bottom, #0077be, #003366); 
+    background: linear-gradient(to bottom, #001cbe, #000c66); 
     perspective: 1000px; 
 }
 
@@ -525,50 +525,109 @@ body {
     padding: 0;
 }
 
+/* --- Contact Form Custom Styles --- */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
-
 .form-group label {
     display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #555;
-    text-align: left; /* Align text to the left */
+    margin-bottom: 6px;
+    font-weight: 700;
+    color: #222;
+    text-align: left;
+    font-size: 1.08em;
 }
-
+.form-group label span {
+    color: #ff3c00;
+    margin-left: 2px;
+    font-weight: 700;
+}
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="tel"],
+.form-group select,
 .form-group textarea {
-    width: calc(100% - 24px); /* Account for padding */
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1em;
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    font-size: 1.08em;
     font-family: 'Inter', sans-serif;
+    background: #fff;
+    color: #222;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
 }
-
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="tel"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #ff9800;
+    outline: none;
+}
+.form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: #fff url('data:image/svg+xml;utf8,<svg fill="%23ff9800" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 16px center/18px 18px;
+    padding-right: 40px;
+    border: 1.5px solid #ddd;
+}
 .form-group textarea {
     resize: vertical;
+    min-height: 80px;
 }
-
+.form-group input[type="checkbox"] {
+    accent-color: #ff9800;
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+.form-group label[for="privacy"] {
+    display: inline;
+    font-weight: 400;
+    color: #888;
+    font-size: 0.98em;
+    vertical-align: middle;
+}
+.form-group a {
+    color: #007bff;
+    font-size: 0.98em;
+    text-decoration: underline;
+    margin-left: 2px;
+}
 .contact-modal form button[type="submit"] {
     display: block;
     width: 100%;
     padding: 15px;
-    background-color: #1a308b;
+    background: linear-gradient(90deg, #ff9800, #ff5722);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 24px;
     font-size: 1.1em;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background 0.2s;
+    margin-top: 10px;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.08);
+}
+.contact-modal form button[type="submit"]:hover {
+    background: linear-gradient(90deg, #ff5722, #ff9800);
 }
 
-.contact-modal form button[type="submit"]:hover {
-    background-color: #1a308b;
+/* Remove default checkbox styling for privacy if needed */
+.form-group input[type="checkbox"]:focus {
+    outline: 2px solid #ff9800;
+}
+
+/* Optional: style the privacy info link for better visibility */
+.form-group a {
+    color: #007bff;
+    font-size: 0.98em;
+    text-decoration: underline;
+    margin-left: 2px;
 }
 
 @media (max-width: 768px) {
