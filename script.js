@@ -4,6 +4,7 @@
         src: "product_platform2.riv",
         canvas: document.getElementById("riveCanvas"),
         autoplay: true,
+        autoBind:true,
         isTouchScrollEnabled: true,
         stateMachines: "State Machine 1",
         artboard: "Main",
