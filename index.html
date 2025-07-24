@@ -11,8 +11,11 @@
    
     
 </head>
+
+
 <body>
     <canvas id="riveCanvas"></canvas>
+    
     <div class="water-background">
         <div class="water-layer layer-1"></div>
         <div class="water-layer layer-2"></div>
@@ -76,8 +79,18 @@
                 <button class="video-modal-close" onclick="closeVideoModal()">&times;</button>
                 <button id="volumeButton" class="volume-btn"></button>
                 <div class="video-container">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/8m7Dmy9GmRA?si=q61xtjbte7ecR9TA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                
+                    <iframe
+                    id="vimeoPlayer"
+                    title="vimeo-player"
+                    src="https://player.vimeo.com/video/1078217820?h=8311443927&background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&controls=0"
+                    width="640"
+                    height="360"
+                    frameborder="0"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    allowfullscreen
+                    ></iframe>
+                                    
                 </div>
             </div>
         </div>
@@ -158,15 +171,5 @@
 <script src="https://player.vimeo.com/api/player.js"></script>
 <script src="script.js"></script>
 
-<script>
-    const riveCanvas = document.getElementById('riveLogoCanvas');
-    new rive.Rive({
-        src: 'loading_motion.riv',
-        canvas: riveCanvas,
-        autoplay: true,
-        artboard: 'render',
-        stateMachines: 'State Machine 1',
-    });
-</script>
 
 </html>

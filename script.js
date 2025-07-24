@@ -1,18 +1,58 @@
 
-    // Load Rive Animation
-    const r = new rive.Rive({
-        src: "product_platform2.riv",
-        canvas: document.getElementById("riveCanvas"),
-        autoplay: true,
-        autoBind:true,
-        isTouchScrollEnabled: true,
-        stateMachines: "State Machine 1",
-        artboard: "Main",
-        onLoad: () => {
+    let r;
+    let currentRiveSrc;
+
+    function initializeRive(src) {
+        if (r) {
+            // Stop and dispose of the previous Rive instance if it exists
+            r.stop();
+            r.cleanup();
+        }
+        const riveCanvas = document.getElementById("riveCanvas");
+        r = new rive.Rive({
+            src: src,
+            canvas: riveCanvas,
+            autoplay: true,
+            autoBind: true,
+            isTouchScrollEnabled: true,
+            stateMachines: "State Machine 1",
+            artboard: "Main",
+            onLoad: () => {
+                r.resizeDrawingSurfaceToCanvas();
+            },
+        });
+        r.on(rive.EventType.RiveEvent, onRiveEventReceived);
+        currentRiveSrc = src;
+    }
+
+    function handleRiveSource() {
+        let newRiveSrc = "product_platform2.riv";
+
+        if (window.matchMedia("(max-width: 768px) and (orientation: portrait)").matches) {
+            newRiveSrc = "product_mobile.riv";
+        } else if (window.matchMedia("(max-width: 768px) and (orientation: landscape)").matches) {
+            newRiveSrc = "product_platform2.riv";
+        }
+
+        if (newRiveSrc !== currentRiveSrc) {
+            initializeRive(newRiveSrc);
+        } else if (!r) {
+            // Initial load if Rive hasn't been initialized yet
+            initializeRive(newRiveSrc);
+        }
+    }
+
+    // Initial load of Rive Animation
+    handleRiveSource();
+
+    // Adjust canvas size on window resize for full responsiveness
+    window.addEventListener('resize', () => {
+        handleRiveSource(); // Re-evaluate and potentially reload Rive
+        if (r) {
             r.resizeDrawingSurfaceToCanvas();
-        },
+        }
     });
-    
+
     function onRiveEventReceived(riveEvent) {
         const eventData = riveEvent.data;
         console.log(eventData); // <-- Add this line
@@ -37,12 +77,6 @@
             }
         }
     }
-
-    r.on(rive.EventType.RiveEvent, onRiveEventReceived);
-    // Adjust canvas size on window resize for full responsiveness
-    window.addEventListener('resize', () => {
-        r.resizeDrawingSurfaceToCanvas();
-    });
     
     //water background
         const waterHighlights = document.querySelector('.water-highlights');
@@ -209,6 +243,7 @@
     // Video Modal Functions
     const videoModalOverlay = document.getElementById('videoModalOverlay');
     const iframe = document.getElementById('vimeoPlayer');
+    console.log('Vimeo Player Iframe Element:', iframe); // Add this line
     const player = new Vimeo.Player(iframe);
     const volumeButton = document.getElementById('volumeButton');
     let isMuted = true;
@@ -301,6 +336,18 @@
         closeContactModal();
         document.getElementById('contactForm').reset(); // Clear the form
     });
-    
+
+
+const riveLogoCanvas = document.getElementById('riveLogoCanvas');
+if (riveLogoCanvas) {
+    new rive.Rive({
+        src: 'loading_motion.riv',
+        canvas: riveLogoCanvas,
+        autoplay: true,
+        artboard: 'render',
+        stateMachines: 'State Machine 1',
+    });
+}
+
 
     
