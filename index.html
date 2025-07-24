@@ -16,6 +16,12 @@
 <body>
     <canvas id="riveCanvas"></canvas>
     
+    <!-- Loading Overlay for Rive -->
+    <div id="loadingOverlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(255,255,255,0.8); z-index:9999; display:flex; align-items:center; justify-content:center;">
+        <canvas id="riveLoadingCanvas" width="200" height="200" style="background:transparent;"></canvas>
+    </div>
+    
+    
     <div class="water-background">
         <div class="water-layer layer-1"></div>
         <div class="water-layer layer-2"></div>
@@ -102,7 +108,7 @@
                 <div class="contact-form-content">
                     <div class="contact-left-panel">
                     <div class="form-header-content">
-                            <canvas id="riveLogoCanvas" class="form-rive"></canvas>
+                            <img id="logoImage" class="form-rive" src="Asset 1.png" alt="Logo" />
                             <p class="form-article">MBF (Made by FPT) is an ecosystem of products and digital platforms developed entirely domestically by FPT IS, aimed at serving comprehensive digital transformation for organizations and businesses in Vietnam and internationally. Focusing on key areas such as government, finance - banking, healthcare, education, manufacturing, and many other sectors, MBF provides over 200 diverse solutions with high flexibility, easy integration, easy deployment, and suitable for all organizational scales.</p>
                         </div>
                     </div>

@@ -1,8 +1,12 @@
 
     let r;
     let currentRiveSrc;
+    let loadingRiveInstance = null;
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const riveLoadingCanvas = document.getElementById('riveLoadingCanvas');
 
     function initializeRive(src) {
+        showLoadingOverlay();
         if (r) {
             // Stop and dispose of the previous Rive instance if it exists
             r.stop();
@@ -19,10 +23,37 @@
             artboard: "Main",
             onLoad: () => {
                 r.resizeDrawingSurfaceToCanvas();
+                hideLoadingOverlay();
             },
         });
         r.on(rive.EventType.RiveEvent, onRiveEventReceived);
         currentRiveSrc = src;
+    }
+
+    function showLoadingOverlay() {
+        if (loadingOverlay && riveLoadingCanvas) {
+            loadingOverlay.style.display = 'flex';
+            if (!loadingRiveInstance) {
+                loadingRiveInstance = new rive.Rive({
+                    src: 'loading_motion.riv',
+                    canvas: riveLoadingCanvas,
+                    autoplay: true,
+                    artboard: 'Artboard',
+                    stateMachines: 'State Machine 1',
+                });
+            } else {
+                loadingRiveInstance.play();
+            }
+        }
+    }
+
+    function hideLoadingOverlay() {
+        if (loadingOverlay && riveLoadingCanvas) {
+            loadingOverlay.style.display = 'none';
+            if (loadingRiveInstance) {
+                loadingRiveInstance.stop();
+            }
+        }
     }
 
     function handleRiveSource() {
