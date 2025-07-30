@@ -1,12 +1,8 @@
 
     let r;
     let currentRiveSrc;
-    let loadingRiveInstance = null;
-    const loadingOverlay = document.getElementById('loadingOverlay');
-    const riveLoadingCanvas = document.getElementById('riveLoadingCanvas');
 
     function initializeRive(src) {
-        showLoadingOverlay();
         if (r) {
             // Stop and dispose of the previous Rive instance if it exists
             r.stop();
@@ -23,37 +19,10 @@
             artboard: "Main",
             onLoad: () => {
                 r.resizeDrawingSurfaceToCanvas();
-                hideLoadingOverlay();
             },
         });
         r.on(rive.EventType.RiveEvent, onRiveEventReceived);
         currentRiveSrc = src;
-    }
-
-    function showLoadingOverlay() {
-        if (loadingOverlay && riveLoadingCanvas) {
-            loadingOverlay.style.display = 'flex';
-            if (!loadingRiveInstance) {
-                loadingRiveInstance = new rive.Rive({
-                    src: 'loading_motion.riv',
-                    canvas: riveLoadingCanvas,
-                    autoplay: true,
-                    artboard: 'Artboard',
-                    stateMachines: 'State Machine 1',
-                });
-            } else {
-                loadingRiveInstance.play();
-            }
-        }
-    }
-
-    function hideLoadingOverlay() {
-        if (loadingOverlay && riveLoadingCanvas) {
-            loadingOverlay.style.display = 'none';
-            if (loadingRiveInstance) {
-                loadingRiveInstance.stop();
-            }
-        }
     }
 
     function handleRiveSource() {
@@ -176,7 +145,7 @@
     animate();
     
     // Chat functionality
-    const API_KEY = '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'; // Your OpenAI API key
+  /*  const API_KEY = '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'; // Your OpenAI API key
     let conversationHistory = [];
     
     function toggleChat() {
@@ -261,7 +230,7 @@
             addMessage('Hello! I\'m the MBF Ambassador. How can I help you learn more about our products today?', 'bot');
         }, 1000);
     });
-    
+    */
     
     // Slide Modal Functions
     function openSlideModal() {

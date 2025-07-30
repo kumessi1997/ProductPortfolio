@@ -16,11 +16,6 @@
 <body>
     <canvas id="riveCanvas"></canvas>
     
-    <!-- Loading Overlay for Rive -->
-    <div id="loadingOverlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(255,255,255,0.8); z-index:9999; display:flex; align-items:center; justify-content:center;">
-        <canvas id="riveLoadingCanvas" width="200" height="200" style="background:transparent;"></canvas>
-    </div>
-    
     
     <div class="water-background">
         <div class="water-layer layer-1"></div>
@@ -172,7 +167,42 @@
                 </div>
             </div>
         </div>
-    
+
+
+          <!-- Chatbot Tova -->
+          <script>
+            (function () {
+              if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+                window.chatbase = (...arguments) => {
+                  if (!window.chatbase.q) {
+                    window.chatbase.q = [];
+                  }
+                  window.chatbase.q.push(arguments);
+                };
+                window.chatbase = new Proxy(window.chatbase, {
+                  get(target, prop) {
+                    if (prop === "q") {
+                      return target.q;
+                    }
+                    return (...args) => target(prop, ...args);
+                  },
+                });
+              }
+              const onLoad = function () {
+                const script = document.createElement("script");
+                script.src = "https://www.chatbase.co/embed.min.js";
+                script.id = "MqU49Bnoh6Y17Sg2wXL7f"; // <-- ID bot riêng của bạn
+                script.domain = "www.chatbase.co";
+                document.body.appendChild(script);
+              };
+              if (document.readyState === "complete") {
+                onLoad();
+              } else {
+                window.addEventListener("load", onLoad);
+              }
+            })();
+          </script>
+
 </body>
 <script src="https://player.vimeo.com/api/player.js"></script>
 <script src="script.js"></script>
