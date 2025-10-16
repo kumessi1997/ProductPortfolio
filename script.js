@@ -1,6 +1,79 @@
 
     let r;
     let currentRiveSrc;
+    let loadingRive;
+    let loadingProgress = 0;
+    let isMainRiveLoaded = false;
+
+    // Initialize loading screen
+    function initializeLoadingScreen() {
+        const loadingCanvas = document.getElementById('loadingCanvas');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        
+        loadingRive = new rive.Rive({
+            src: 'mbf.riv',
+            canvas: loadingCanvas,
+            autoplay: true,
+            stateMachines: 'State Machine 1',
+            fit: rive.Fit.cover,
+            onLoad: () => {
+                // Start the loading progress simulation
+                simulateLoadingProgress();
+            },
+        });
+    }
+
+    // Simulate loading progress
+    function simulateLoadingProgress() {
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        
+        const interval = setInterval(() => {
+            loadingProgress += Math.random() * 15; // Random increment for realistic feel
+            
+            if (loadingProgress > 100) {
+                loadingProgress = 100;
+                clearInterval(interval);
+            }
+            
+            progressFill.style.width = loadingProgress + '%';
+            progressText.textContent = Math.round(loadingProgress) + '%';
+            
+            // Update the loading animation based on progress
+            if (loadingRive && loadingRive.stateMachineInputs) {
+                const inputs = loadingRive.stateMachineInputs('State Machine 1');
+                const percentInput = inputs.find(i => i.name === 'percent');
+                if (percentInput) {
+                    percentInput.value = loadingProgress;
+                }
+            }
+            
+            // Check if main Rive is loaded and progress is complete
+            if (isMainRiveLoaded && loadingProgress >= 100) {
+                setTimeout(() => {
+                    hideLoadingScreen();
+                }, 500);
+            }
+        }, 100);
+    }
+
+    // Hide loading screen
+    function hideLoadingScreen() {
+        const loadingScreen = document.getElementById('loadingScreen');
+        loadingScreen.classList.add('hidden');
+        
+        // Clean up loading Rive instance
+        if (loadingRive) {
+            loadingRive.stop();
+            loadingRive.cleanup();
+        }
+        
+        // Remove loading screen from DOM after transition
+        setTimeout(() => {
+            loadingScreen.remove();
+        }, 500);
+    }
 
     function initializeRive(src) {
         if (r) {
@@ -9,6 +82,10 @@
             r.cleanup();
         }
         const riveCanvas = document.getElementById("riveCanvas");
+        
+        // Ensure canvas supports transparency for blending
+        riveCanvas.style.background = 'transparent';
+        
         r = new rive.Rive({
             src: src,
             canvas: riveCanvas,
@@ -19,6 +96,13 @@
             artboard: "Main",
             onLoad: () => {
                 r.resizeDrawingSurfaceToCanvas();
+                // Clear canvas with transparent background
+                const ctx = riveCanvas.getContext('2d');
+                if (ctx) {
+                    ctx.globalCompositeOperation = 'source-over';
+                }
+                // Mark main Rive as loaded
+                isMainRiveLoaded = true;
             },
         });
         r.on(rive.EventType.RiveEvent, onRiveEventReceived);
@@ -42,6 +126,9 @@
         }
     }
 
+    // Initialize loading screen first
+    initializeLoadingScreen();
+    
     // Initial load of Rive Animation
     handleRiveSource();
 
@@ -229,6 +316,11 @@
         setTimeout(() => {
             addMessage('Hello! I\'m the MBF Ambassador. How can I help you learn more about our products today?', 'bot');
         }, 1000);
+    });
+    
+    // Ensure loading screen starts when page loads
+    window.addEventListener('DOMContentLoaded', () => {
+        // Loading screen is already initialized above
     });
     */
     

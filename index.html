@@ -14,6 +14,23 @@
 
 
 <body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-container">
+            <canvas id="loadingCanvas" width="400" height="400"></canvas>
+            <div class="loading-text">
+                <h2>MBF Product Portfolio</h2>
+                <p>Loading amazing experiences...</p>
+                <div class="loading-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <canvas id="riveCanvas"></canvas>
     
     
@@ -171,37 +188,8 @@
 
           <!-- Chatbot Tova -->
           <script>
-            (function () {
-              if (!window.chatbase || window.chatbase("getState") !== "initialized") {
-                window.chatbase = (...arguments) => {
-                  if (!window.chatbase.q) {
-                    window.chatbase.q = [];
-                  }
-                  window.chatbase.q.push(arguments);
-                };
-                window.chatbase = new Proxy(window.chatbase, {
-                  get(target, prop) {
-                    if (prop === "q") {
-                      return target.q;
-                    }
-                    return (...args) => target(prop, ...args);
-                  },
-                });
-              }
-              const onLoad = function () {
-                const script = document.createElement("script");
-                script.src = "https://www.chatbase.co/embed.min.js";
-                script.id = "MqU49Bnoh6Y17Sg2wXL7f"; // <-- ID bot riêng của bạn
-                script.domain = "www.chatbase.co";
-                document.body.appendChild(script);
-              };
-              if (document.readyState === "complete") {
-                onLoad();
-              } else {
-                window.addEventListener("load", onLoad);
-              }
-            })();
-          </script>
+            (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="MqU49Bnoh6Y17Sg2wXL7f";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+            </script>
 
 </body>
 <script src="https://player.vimeo.com/api/player.js"></script>
