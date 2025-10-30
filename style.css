@@ -164,7 +164,7 @@ body {
     z-index: -1;
     /* Apply backimg.png as background with gradient overlay */
     background: 
-        linear-gradient(to bottom, rgba(0, 28, 190, 0.7), rgba(2, 13, 96, 0.8)),
+        linear-gradient(to bottom, rgba(0, 28, 190, 0.7), rgba(2, 11, 103, 0.8)),
         url('backimg.png');
     background-size: cover;
     background-position: center;
@@ -1010,6 +1010,7 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     overflow: hidden;
     display: flex;
+    flex-direction: column; /* Stack canvas and buttons vertically */
     align-items: center;
     justify-content: center;
 }
@@ -1020,6 +1021,8 @@ body {
     height: 1080px;
     max-width: 95vw;
     max-height: 85vh;
+    position: relative; /* Override global canvas fixed positioning */
+    z-index: 1;
 }
 
 .rive-slide-close {
@@ -1032,4 +1035,77 @@ body {
     font-size: 2rem;
     cursor: pointer;
     z-index: 5;
+}
+
+/* Buttons overlay inside Rive slide modal */
+.rive-video-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    margin: 16px 0 8px 0; /* space below canvas */
+}
+
+.rive-video-button {
+    padding: 12px 20px;
+    background: linear-gradient(90deg, #ff9800, #ff5722);
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.rive-video-button:hover {
+    transform: translateY(-1px);
+    opacity: 0.95;
+}
+
+/* Local Video Modal for playing local files */
+.local-video-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.85);
+    z-index: 2300;
+    align-items: center;
+    justify-content: center;
+}
+
+.local-video-modal-overlay.active {
+    display: flex;
+}
+
+.local-video-modal {
+    position: relative;
+    width: 90vw;
+    max-width: 1200px;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.local-video-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.local-video-element {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #000;
 }

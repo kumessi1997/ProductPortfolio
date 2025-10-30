@@ -5,6 +5,10 @@
     let loadingProgress = 0;
     let isMainRiveLoaded = false;
 let riveSlideInstance;
+const LOCAL_VIDEO_SOURCES = {
+    intro: 'ami.mp4',
+    feedback: 'videofeedback.mp4'
+};
 
     // Initialize loading screen
     function initializeLoadingScreen() {
@@ -378,6 +382,50 @@ let riveSlideInstance;
             overlay.addEventListener('click', function(e) {
                 if (e.target === overlay) {
                     closeRiveSlide();
+                }
+            });
+        }
+    })();
+
+    // Local Video Modal (for playing local files)
+    function openLocalVideoModal(src) {
+        const overlay = document.getElementById('localVideoModalOverlay');
+        const video = document.getElementById('localVideoElement');
+        if (!overlay || !video) return;
+        video.src = src;
+        video.load();
+        overlay.classList.add('active');
+        // Attempt autoplay; browsers generally allow if user interacted (button click)
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(() => {/* ignore autoplay rejection */});
+        }
+    }
+
+    function closeLocalVideoModal() {
+        const overlay = document.getElementById('localVideoModalOverlay');
+        const video = document.getElementById('localVideoElement');
+        if (!overlay || !video) return;
+        video.pause();
+        video.currentTime = 0;
+        video.removeAttribute('src');
+        overlay.classList.remove('active');
+    }
+
+    // Public API for buttons
+    function playLocalVideo(type) {
+        const src = LOCAL_VIDEO_SOURCES[type];
+        if (!src) return;
+        openLocalVideoModal(src);
+    }
+
+    // Close local video when clicking on overlay outside the player
+    (function setupLocalVideoOverlayClickToClose(){
+        const overlay = document.getElementById('localVideoModalOverlay');
+        if (overlay) {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    closeLocalVideoModal();
                 }
             });
         }

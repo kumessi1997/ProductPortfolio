@@ -87,6 +87,10 @@
             <div class="rive-slide-modal">
                 <button class="rive-slide-close" onclick="closeRiveSlide()" title="Close">&times;</button>
                 <canvas id="riveSlideCanvas" width="1920" height="1080"></canvas>
+                <div class="rive-video-buttons">
+                    <button class="rive-video-button" onclick="playLocalVideo('intro')">Video Introduction</button>
+                    <button class="rive-video-button" onclick="playLocalVideo('feedback')">Video Feedback</button>
+                </div>
             </div>
         </div>
         <div class="slide-modal-overlay" id="slideModalOverlay">
@@ -99,6 +103,14 @@
             </div>
         </div>
 
+        <!-- Local Video Modal -->
+        <div class="local-video-modal-overlay" id="localVideoModalOverlay">
+            <div class="local-video-modal">
+                <button class="local-video-close" onclick="closeLocalVideoModal()" title="Close">&times;</button>
+                <video id="localVideoElement" class="local-video-element" controls playsinline></video>
+            </div>
+        </div>
+    
         <!-- Video Modal -->
         <div class="video-modal-overlay" id="videoModalOverlay">
             <div class="video-modal">
