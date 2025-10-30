@@ -4,6 +4,7 @@
     let loadingRive;
     let loadingProgress = 0;
     let isMainRiveLoaded = false;
+let riveSlideInstance;
 
     // Initialize loading screen
     function initializeLoadingScreen() {
@@ -332,6 +333,56 @@
         document.getElementById('slideModalOverlay').classList.remove('active');
     }
     
+    // Rive Slide Modal (1920x1080) Functions
+    function openRiveSlide() {
+        const overlay = document.getElementById('riveSlideOverlay');
+        const canvas = document.getElementById('riveSlideCanvas');
+        overlay.classList.add('active');
+        
+        // Cleanup previous instance if any
+        if (riveSlideInstance) {
+            try { riveSlideInstance.stop(); riveSlideInstance.cleanup(); } catch (e) {}
+            riveSlideInstance = null;
+        }
+        
+        // Ensure canvas background
+        canvas.style.background = '#000';
+        
+        riveSlideInstance = new rive.Rive({
+            src: 'slide.riv',
+            canvas: canvas,
+            autoplay: true,
+            artboard: 'Slide',
+            stateMachines: 'State Machine 1',
+            fit: rive.Fit.contain,
+            onLoad: () => {
+                // Match drawing surface to current CSS-rendered size
+                riveSlideInstance.resizeDrawingSurfaceToCanvas();
+            },
+        });
+    }
+    
+    function closeRiveSlide() {
+        const overlay = document.getElementById('riveSlideOverlay');
+        overlay.classList.remove('active');
+        if (riveSlideInstance) {
+            try { riveSlideInstance.stop(); riveSlideInstance.cleanup(); } catch (e) {}
+            riveSlideInstance = null;
+        }
+    }
+
+    // Close modal when clicking outside the frame (on overlay)
+    (function setupRiveSlideOverlayClickToClose(){
+        const overlay = document.getElementById('riveSlideOverlay');
+        if (overlay) {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    closeRiveSlide();
+                }
+            });
+        }
+    })();
+
     // Video Modal Functions
     const videoModalOverlay = document.getElementById('videoModalOverlay');
     const iframe = document.getElementById('vimeoPlayer');

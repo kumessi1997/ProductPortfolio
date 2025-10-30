@@ -45,7 +45,7 @@
         <!-- Chat Interface -->
         <div class="bottom-buttons-wrapper">
             <div class="chat-container">
-                <button class="chat-button" onclick="toggleChat()">
+                <button class="chat-button" onclick="openRiveSlide()">
                     <img src="logo.png" alt="Logo" style="width: 100%; height: 100%;">
                 </button>
                 <div class="chat-window" id="chatWindow">
@@ -79,6 +79,14 @@
                     </svg>
                 </button>
                 
+            </div>
+        </div>
+        
+        <!-- Rive Slide Modal -->
+        <div class="rive-slide-overlay" id="riveSlideOverlay">
+            <div class="rive-slide-modal">
+                <button class="rive-slide-close" onclick="closeRiveSlide()" title="Close">&times;</button>
+                <canvas id="riveSlideCanvas" width="1920" height="1080"></canvas>
             </div>
         </div>
         <div class="slide-modal-overlay" id="slideModalOverlay">
